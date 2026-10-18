@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Preinscripción online a las actividades del Club Los Algarrobos.">
+  <title>Club Los Algarrobos | Preinscripción</title>
+  <link rel="stylesheet" href="../styles/estilos.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header-content">
+      <a href="index.html" class="brand">
+        <img src="../img/logo.svg" alt="Escudo del Club Los Algarrobos" width="36" height="36">
+        Los Algarrobos
+      </a>
+      <nav aria-label="Navegación principal">
+        <ul class="nav">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="actividades.html">Actividades</a></li>
+          <li><a href="preinscripcion.html" aria-current="page">Preinscripción</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <!-- Usa el objeto history del navegador (ver scripts/script.js) -->
+      <button type="button" id="back-button" class="btn btn-outline btn-sm">&larr; Volver</button>
+      <h1>Preinscripción</h1>
+      <p class="muted">Dejanos tus datos y la secretaría del club se comunica con vos para completar la inscripción.
+        Para tener en cuenta:</p>
+      <ul class="muted">
+        <li>El DNI va sin puntos (7 u 8 números).</li>
+        <li>La edad tiene que estar dentro del rango de la actividad.</li>
+        <li>Cada socio puede anotarse hasta en 3 actividades.</li>
+        <li>Para sumar actividades necesitás tener la cuota al día.</li>
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="form-title">
+      <h2 id="form-title">Tus datos</h2>
+
+      <!-- novalidate: la validación la hace signup.js para mostrar los errores junto a cada campo -->
+      <form id="signup-form" novalidate>
+        <div class="field">
+          <label for="firstName">Nombre *</label>
+          <input type="text" id="firstName" autocomplete="given-name">
+          <span class="error" id="firstName-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="lastName">Apellido *</label>
+          <input type="text" id="lastName" autocomplete="family-name">
+          <span class="error" id="lastName-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="dni">DNI *</label>
+          <input type="text" id="dni" inputmode="numeric" placeholder="Sin puntos, ej: 40123456">
+          <span class="error" id="dni-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="birthDate">Fecha de nacimiento *</label>
+          <input type="date" id="birthDate">
+          <span class="error" id="birthDate-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="email">Email *</label>
+          <input type="email" id="email" autocomplete="email" placeholder="nombre@correo.com">
+          <span class="error" id="email-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="phone">Teléfono *</label>
+          <input type="tel" id="phone" autocomplete="tel" placeholder="351 1234567">
+          <span class="error" id="phone-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="activity">Actividad *</label>
+          <select id="activity">
+            <option value="">Elegí una actividad</option>
+            <!-- Opciones cargadas desde JavaScript -->
+          </select>
+          <span class="error" id="activity-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="comments">Comentarios (opcional)</label>
+          <textarea id="comments" rows="3" placeholder="¿Algo que debamos saber?"></textarea>
+        </div>
+
+        <p class="muted">Los campos marcados con * son obligatorios.</p>
+        <button type="submit" class="btn">Enviar preinscripción</button>
+      </form>
+
+      <div id="success-message" class="box mt" hidden aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year">2026</span> Club Social y Deportivo Los Algarrobos · Córdoba, Argentina</p>
+  </footer>
+
+  <script src="../scripts/utils.js"></script>
+  <script src="../scripts/activities.js"></script>
+  <script src="../scripts/signup.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

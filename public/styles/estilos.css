@@ -1,0 +1,283 @@
+/* ==========================================================
+   Club Los Algarrobos - Hoja de estilos
+   Diseño de una sola columna con clases genéricas reutilizables.
+   ========================================================== */
+
+:root {
+  --green: #1f5130;
+  --green-light: #eaf2e6;
+  --gold: #e0a526;
+  --text: #1d2420;
+  --muted: #5b665f;
+  --bg: #f7f7f4;
+  --white: #ffffff;
+  --border: #e2e5df;
+  --error: #c0392b;
+  --radius: 12px;
+}
+
+/* ---------- Selectores de tipo ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--green);
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+}
+
+a {
+  color: var(--green);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+address {
+  font-style: normal;
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--green);
+  outline-offset: 1px;
+}
+
+/* ---------- Selectores de atributo ---------- */
+.nav a[aria-current="page"] {
+  color: var(--green);
+  border-bottom: 2px solid var(--gold);
+}
+
+[aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+/* ---------- Selectores de ID ---------- */
+#hero {
+  padding-top: 3rem;
+}
+
+#hero img {
+  margin-top: 1.5rem;
+}
+
+/* ---------- Clases genéricas ---------- */
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.section {
+  padding: 2rem 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.rounded {
+  border-radius: var(--radius);
+}
+
+.mt {
+  margin-top: 1.5rem;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--green);
+  background: var(--green-light);
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+}
+
+.box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.85rem;
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-block;
+  font: inherit;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--green);
+  border: 2px solid var(--green);
+  border-radius: 999px;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-outline {
+  color: var(--green);
+  background: transparent;
+}
+
+.btn-sm {
+  padding: 0.3rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+/* ---------- Header y footer ---------- */
+.header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.nav {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--green-light);
+  background: var(--green);
+  padding: 1rem;
+}
+
+/* ---------- Componentes ---------- */
+.chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+}
+
+.chips li {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.25rem 0.8rem;
+}
+
+.map {
+  width: 100%;
+  height: 260px;
+  border: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.card h3 {
+  margin-top: 0.6rem;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  color: var(--muted);
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--green);
+}
+
+/* ---------- Responsivo: en celular las tarjetas van en una columna ---------- */
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

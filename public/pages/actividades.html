@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Actividades del Club Los Algarrobos: días, horarios, edades, profesores y cuotas.">
+  <title>Club Los Algarrobos | Actividades</title>
+  <link rel="stylesheet" href="../styles/estilos.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-content">
+      <a href="index.html" class="brand">
+        <img src="../img/logo.svg" alt="Escudo del Club Los Algarrobos" width="36" height="36">
+        Los Algarrobos
+      </a>
+      <nav aria-label="Navegación principal">
+        <ul class="nav">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="actividades.html" aria-current="page">Actividades</a></li>
+          <li><a href="preinscripcion.html">Preinscripción</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <h1>Actividades</h1>
+      <p class="muted">Filtrá por disciplina o por la edad de quien se quiere anotar.</p>
+
+      <!-- Filtros: catalog.js escucha sus eventos y redibuja el catálogo -->
+      <div id="filters" class="box">
+        <div class="field">
+          <label for="discipline-filter">Disciplina</label>
+          <select id="discipline-filter">
+            <option value="">Todas</option>
+            <!-- Opciones cargadas desde JavaScript -->
+          </select>
+        </div>
+        <div class="field">
+          <label for="age-filter">Edad</label>
+          <input type="number" id="age-filter" min="1" max="99" placeholder="Ej: 10">
+        </div>
+        <button type="button" id="clear-filters" class="btn btn-outline">Limpiar filtros</button>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="catalog-title">
+      <h2 id="catalog-title">Catálogo</h2>
+      <p id="filter-result" class="muted" aria-live="polite"></p>
+      <!-- Contenedor que se completa con JavaScript -->
+      <div id="catalog" class="grid"></div>
+    </section>
+
+    <aside class="box" aria-labelledby="how-title">
+      <h2 id="how-title">¿Cómo me anoto?</h2>
+      <ol>
+        <li>Elegí la actividad que te guste.</li>
+        <li>Completá la preinscripción online.</li>
+        <li>Secretaría te contacta para confirmar el lugar.</li>
+      </ol>
+      <p class="muted">Con 2 actividades tenés 10&nbsp;% de descuento y con 3, un 15&nbsp;%.</p>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year">2026</span> Club Social y Deportivo Los Algarrobos · Córdoba, Argentina</p>
+  </footer>
+
+  <!-- El orden importa: primero los datos, después la lógica de la página y al final el script principal -->
+  <script src="../scripts/activities.js"></script>
+  <script src="../scripts/catalog.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+</html>
