@@ -16,10 +16,10 @@ Sistema web de gestión de socios, actividades e inscripciones con tres caras qu
 
 | Integrante | Parte principal |
 |---|---|
-| [Nombre y apellido] | [Parte] |
-| [Nombre y apellido] | [Parte] |
-| [Nombre y apellido] | [Parte] |
-| [Nombre y apellido] | [Parte] |
+| Gabriel Andrés Brandalisse | A — Sitio público del club |
+| Pedro Mariano Cereghetti | B — Backoffice de secretaría y C — API REST |
+| Mateo Baccillere | D — App "Mi Club" y pruebas de la app |
+| Luciana Gallardo | E — Prueba de sistema y F — Documentación |
 
 ## Requisitos
 
@@ -156,5 +156,6 @@ Cuando una regla rechaza la inscripción, la API responde `409 Conflict` con el 
 
 ## Más detalle
 
+- [`docs/informe-tecnico.md`](docs/informe-tecnico.md): informe técnico, prueba de sistema y bitácora de IA.
 - [`backend/README.md`](backend/README.md): backoffice, API y login.
 - [`app/README.md`](app/README.md): rutas, componentes y conceptos de React de la app.
