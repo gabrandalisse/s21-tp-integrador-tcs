@@ -25,9 +25,17 @@ public class ActividadService {
     }
 
     @Transactional(readOnly = true)
+    public List<Actividad> listarPorDisciplina(String disciplina) {
+        if (disciplina == null || disciplina.isBlank()) {
+            return listar();
+        }
+        return actividadRepository.findByDisciplinaIgnoreCase(disciplina.trim());
+    }
+
+    @Transactional(readOnly = true)
     public Actividad buscarPorId(Long id) {
         return actividadRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró la actividad solicitada."));
+                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró la actividad solicitada."));
     }
 
     public Actividad guardar(Actividad actividad) {

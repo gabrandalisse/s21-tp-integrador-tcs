@@ -31,7 +31,13 @@ public class SocioService {
     @Transactional(readOnly = true)
     public Socio buscarPorId(Long id) {
         return socioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró el socio solicitado."));
+                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró el socio solicitado."));
+    }
+
+    @Transactional(readOnly = true)
+    public Socio buscarPorDni(String dni) {
+        return socioRepository.findByDni(dni)
+                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró un socio con ese DNI."));
     }
 
     public Socio guardar(Socio socio) {

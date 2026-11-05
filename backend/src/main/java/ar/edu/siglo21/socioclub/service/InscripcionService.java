@@ -27,9 +27,9 @@ public class InscripcionService {
 
     public Inscripcion inscribir(Long socioId, Long actividadId) {
         Socio socio = socioRepository.findById(socioId)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró el socio seleccionado."));
+                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró el socio seleccionado."));
         Actividad actividad = actividadRepository.findById(actividadId)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró la actividad seleccionada."));
+                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró la actividad seleccionada."));
 
         validarCupo(actividad);
         validarDuplicado(socioId, actividadId);
@@ -47,7 +47,7 @@ public class InscripcionService {
 
     public Inscripcion darDeBaja(Long id) {
         Inscripcion inscripcion = inscripcionRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró la inscripción solicitada."));
+                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró la inscripción solicitada."));
         inscripcion.setEstado(EstadoInscripcion.BAJA);
         return inscripcionRepository.save(inscripcion);
     }
@@ -56,6 +56,14 @@ public class InscripcionService {
     public List<Inscripcion> listarActivasPorActividad(Long actividadId) {
         return inscripcionRepository.findByActividadIdAndEstadoOrderBySocioApellidoAscSocioNombreAsc(
                 actividadId, EstadoInscripcion.ACTIVA);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Inscripcion> listarActivasPorSocio(Long socioId) {
+        if (!socioRepository.existsById(socioId)) {
+            throw new RecursoNoEncontradoException("No se encontró el socio solicitado.");
+        }
+        return inscripcionRepository.findBySocioIdAndEstado(socioId, EstadoInscripcion.ACTIVA);
     }
 
     private void validarCupo(Actividad actividad) {
