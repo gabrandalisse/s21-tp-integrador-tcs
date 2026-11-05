@@ -1,0 +1,10 @@
+<header class="site-header" th:fragment="header(titulo)">
+    <div class="container header-content">
+        <a class="brand" th:href="@{/actividades}">Los Algarrobos <span>· Secretaría</span></a>
+        <nav aria-label="Navegación de secretaría">
+            <a th:href="@{/actividades}" th:classappend="${titulo == 'Actividades'} ? 'active'">Actividades</a>
+            <a th:href="@{/socios}" th:classappend="${titulo == 'Socios'} ? 'active'">Socios</a>
+            <a th:href="@{/inscripciones/nueva}" th:classappend="${titulo == 'Inscripciones'} ? 'active'">Nueva inscripción</a>
+        </nav>
+    </div>
+</header>

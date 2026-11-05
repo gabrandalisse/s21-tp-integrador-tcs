@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title th:text="${titulo + ' | Secretaría'}">Socio | Secretaría</title><link rel="stylesheet" th:href="@{/css/backoffice.css}"></head>
+<body>
+<header th:replace="~{fragments/header :: header('Socios')}"></header>
+<main class="container narrow">
+    <div class="page-heading"><h1 th:text="${titulo}"></h1><a class="button secondary" th:href="@{/socios}">Volver</a></div><div th:if="${error}" class="message error" th:text="${error}"></div>
+    <form class="card form-grid" th:object="${socio}" method="post" th:action="${socio.id == null} ? @{/socios/nuevo} : @{/socios/{id}/editar(id=${socio.id})}">
+        <div><label for="nombre">Nombre</label><input id="nombre" th:field="*{nombre}"><small class="field-error" th:errors="*{nombre}"></small></div>
+        <div><label for="apellido">Apellido</label><input id="apellido" th:field="*{apellido}"><small class="field-error" th:errors="*{apellido}"></small></div>
+        <div><label for="dni">DNI</label><input id="dni" inputmode="numeric" th:field="*{dni}"><small class="field-error" th:errors="*{dni}"></small></div>
+        <div><label for="fechaNacimiento">Fecha de nacimiento</label><input id="fechaNacimiento" type="date" th:field="*{fechaNacimiento}"><small class="field-error" th:errors="*{fechaNacimiento}"></small></div>
+        <div><label for="email">Email</label><input id="email" type="email" th:field="*{email}"><small class="field-error" th:errors="*{email}"></small></div>
+        <div><label for="telefono">Teléfono</label><input id="telefono" type="tel" th:field="*{telefono}"><small class="field-error" th:errors="*{telefono}"></small></div>
+        <div><label for="estadoCuota">Estado de cuota</label><select id="estadoCuota" th:field="*{estadoCuota}"><option th:each="estado : ${estadosCuota}" th:value="${estado}" th:text="${estado == T(ar.edu.siglo21.socioclub.model.EstadoCuota).AL_DIA ? 'Al día' : 'Moroso'}"></option></select><small class="field-error" th:errors="*{estadoCuota}"></small></div>
+        <div class="form-actions"><button class="button" type="submit">Guardar socio</button></div>
+    </form>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

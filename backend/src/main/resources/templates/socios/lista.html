@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Socios | Secretaría</title><link rel="stylesheet" th:href="@{/css/backoffice.css}"></head>
+<body>
+<header th:replace="~{fragments/header :: header('Socios')}"></header>
+<main class="container">
+    <div class="page-heading"><div><p class="eyebrow">Gestión interna</p><h1>Socios</h1></div><a class="button" th:href="@{/socios/nuevo}">Nuevo socio</a></div>
+    <div th:if="${exito}" class="message success" th:text="${exito}"></div><div th:if="${error}" class="message error" th:text="${error}"></div>
+    <form class="search-form" method="get" th:action="@{/socios}"><label for="apellido">Buscar por apellido</label><input id="apellido" name="apellido" th:value="${apellido}" placeholder="Ej. Pérez"><button class="button secondary" type="submit">Buscar</button><a th:href="@{/socios}">Limpiar</a></form>
+    <div class="table-wrapper"><table><thead><tr><th>Socio</th><th>DNI</th><th>Contacto</th><th>Cuota</th><th></th></tr></thead><tbody>
+        <tr th:each="socio : ${paginaSocios.content}"><td><strong th:text="${socio.nombreCompleto}"></strong><small th:text="${#temporals.format(socio.fechaNacimiento, 'dd/MM/yyyy')}"></small></td><td th:text="${socio.dni}"></td><td><span th:text="${socio.email}"></span><small th:text="${socio.telefono}"></small></td><td><span class="badge" th:classappend="${socio.estadoCuota.name() == 'MOROSO'} ? 'warning'" th:text="${socio.estadoCuota == T(ar.edu.siglo21.socioclub.model.EstadoCuota).AL_DIA ? 'Al día' : 'Moroso'}"></span></td><td><a th:href="@{/socios/{id}/editar(id=${socio.id})}">Editar</a></td></tr>
+        <tr th:if="${paginaSocios.empty}"><td colspan="5">No se encontraron socios.</td></tr>
+    </tbody></table></div>
+    <nav class="pagination" th:if="${paginaSocios.totalPages > 1}" aria-label="Paginación"><a th:if="${!paginaSocios.first}" th:href="@{/socios(apellido=${apellido},pagina=${paginaSocios.number - 1})}">← Anterior</a><span th:text="${'Página ' + (paginaSocios.number + 1) + ' de ' + paginaSocios.totalPages}"></span><a th:if="${!paginaSocios.last}" th:href="@{/socios(apellido=${apellido},pagina=${paginaSocios.number + 1})}">Siguiente →</a></nav>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

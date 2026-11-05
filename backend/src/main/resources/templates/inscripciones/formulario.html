@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Nueva inscripción | Secretaría</title><link rel="stylesheet" th:href="@{/css/backoffice.css}"></head>
+<body>
+<header th:replace="~{fragments/header :: header('Inscripciones')}"></header>
+<main class="container narrow">
+    <div class="page-heading"><div><p class="eyebrow">Gestión interna</p><h1>Nueva inscripción</h1></div></div>
+    <p class="intro">El sistema validará automáticamente el cupo, duplicados, edad, estado de cuota y máximo de actividades.</p>
+    <div th:if="${error}" class="message error" th:text="${error}"></div>
+    <form class="card form-grid" method="post" th:action="@{/inscripciones}">
+        <div class="full-width"><label for="socioId">Socio</label><select id="socioId" name="socioId" required><option value="">Elegí un socio</option><option th:each="socio : ${socios}" th:value="${socio.id}" th:text="${socio.apellido + ', ' + socio.nombre + ' · DNI ' + socio.dni + ' · ' + socio.estadoCuota}"></option></select></div>
+        <div class="full-width"><label for="actividadId">Actividad</label><select id="actividadId" name="actividadId" required><option value="">Elegí una actividad</option><option th:each="actividad : ${actividades}" th:value="${actividad.id}" th:text="${actividad.nombre + ' · ' + actividad.edadMinima + ' a ' + actividad.edadMaxima + ' años'}"></option></select></div>
+        <div class="form-actions"><button class="button" type="submit">Confirmar inscripción</button></div>
+    </form>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

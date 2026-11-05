@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscriptos | Secretaría</title><link rel="stylesheet" th:href="@{/css/backoffice.css}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header('Actividades')}"></header>
+<main class="container">
+    <div class="page-heading"><div><p class="eyebrow" th:text="${actividad.disciplina}"></p><h1 th:text="${actividad.nombre}"></h1><p th:text="${'Cupo disponible: ' + cupoDisponible + ' de ' + actividad.cupoMaximo}"></p></div><a class="button secondary" th:href="@{/actividades}">Volver</a></div>
+    <div th:if="${exito}" class="message success" th:text="${exito}"></div><div th:if="${error}" class="message error" th:text="${error}"></div>
+    <div class="table-wrapper"><table><thead><tr><th>Socio</th><th>DNI</th><th>Contacto</th><th>Fecha de inscripción</th><th></th></tr></thead><tbody>
+        <tr th:each="inscripcion : ${inscripciones}"><td th:text="${inscripcion.socio.nombreCompleto}"></td><td th:text="${inscripcion.socio.dni}"></td><td><span th:text="${inscripcion.socio.email}"></span><small th:text="${inscripcion.socio.telefono}"></small></td><td th:text="${#temporals.format(inscripcion.fechaInscripcion, 'dd/MM/yyyy')}"></td><td><form th:action="@{/inscripciones/{id}/baja(id=${inscripcion.id})}" method="post"><input type="hidden" name="actividadId" th:value="${actividad.id}"><button class="link danger" type="submit">Dar de baja</button></form></td></tr>
+        <tr th:if="${#lists.isEmpty(inscripciones)}"><td colspan="5">Todavía no hay inscriptos activos.</td></tr>
+    </tbody></table></div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

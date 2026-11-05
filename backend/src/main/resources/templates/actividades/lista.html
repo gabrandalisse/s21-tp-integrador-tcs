@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades | Secretaría</title>
+    <link rel="stylesheet" th:href="@{/css/backoffice.css}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header('Actividades')}"></header>
+<main class="container">
+    <div class="page-heading">
+        <div><p class="eyebrow">Gestión interna</p><h1>Actividades</h1></div>
+        <a class="button" th:href="@{/actividades/nueva}">Nueva actividad</a>
+    </div>
+    <div th:if="${exito}" class="message success" th:text="${exito}"></div>
+    <div th:if="${error}" class="message error" th:text="${error}"></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th>Actividad</th><th>Horario</th><th>Edades</th><th>Cupo</th><th>Cuota</th><th>Acciones</th></tr></thead>
+            <tbody>
+            <tr th:each="actividad : ${actividades}">
+                <td><strong th:text="${actividad.nombre}">Actividad</strong><small th:text="${actividad.disciplina + ' · ' + actividad.profesor}"></small></td>
+                <td th:text="${actividad.dias + ' · ' + actividad.horario + ' h'}"></td>
+                <td th:text="${actividad.edadMinima + ' a ' + actividad.edadMaxima + ' años'}"></td>
+                <td><strong th:text="${cuposDisponibles[actividad.id] + ' disponibles'}"></strong><small th:text="${'de ' + actividad.cupoMaximo + ' lugares'}"></small></td>
+                <td th:text="${'$ ' + #numbers.formatDecimal(actividad.cuotaMensual, 1, 'POINT', 0, 'COMMA')}"></td>
+                <td class="actions">
+                    <a th:href="@{/actividades/{id}/inscriptos(id=${actividad.id})}">Inscriptos</a>
+                    <a th:href="@{/actividades/{id}/editar(id=${actividad.id})}">Editar</a>
+                    <form th:action="@{/actividades/{id}/eliminar(id=${actividad.id})}" method="post">
+                        <button class="link danger" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(actividades)}"><td colspan="6">No hay actividades cargadas.</td></tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: socioclub-db
+    environment:
+      MYSQL_DATABASE: socioclub
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - socioclub_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot --skip-password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backoffice:
+    build:
+      context: ./backend
+    container_name: socioclub-backoffice
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:mysql://db:3306/socioclub?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Argentina/Buenos_Aires
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+    ports:
+      - "8080:8080"
+
+volumes:
+  socioclub_mysql_data:

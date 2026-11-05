@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo + ' | Secretaría'}">Actividad | Secretaría</title>
+    <link rel="stylesheet" th:href="@{/css/backoffice.css}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header('Actividades')}"></header>
+<main class="container narrow">
+    <div class="page-heading"><h1 th:text="${titulo}">Actividad</h1><a class="button secondary" th:href="@{/actividades}">Volver</a></div>
+    <div th:if="${error}" class="message error" th:text="${error}"></div>
+    <form class="card form-grid" th:object="${actividad}" method="post"
+          th:action="${actividad.id == null} ? @{/actividades/nueva} : @{/actividades/{id}/editar(id=${actividad.id})}">
+        <div><label for="nombre">Nombre</label><input id="nombre" th:field="*{nombre}"><small class="field-error" th:errors="*{nombre}"></small></div>
+        <div><label for="disciplina">Disciplina</label><input id="disciplina" th:field="*{disciplina}"><small class="field-error" th:errors="*{disciplina}"></small></div>
+        <div><label for="profesor">Profesor/a</label><input id="profesor" th:field="*{profesor}"><small class="field-error" th:errors="*{profesor}"></small></div>
+        <div><label for="dias">Días</label><input id="dias" th:field="*{dias}" placeholder="Lun y Mié"><small class="field-error" th:errors="*{dias}"></small></div>
+        <div><label for="horario">Horario</label><input id="horario" th:field="*{horario}" placeholder="18:00"><small class="field-error" th:errors="*{horario}"></small></div>
+        <div><label for="edadMinima">Edad mínima</label><input id="edadMinima" type="number" min="0" th:field="*{edadMinima}"><small class="field-error" th:errors="*{edadMinima}"></small></div>
+        <div><label for="edadMaxima">Edad máxima</label><input id="edadMaxima" type="number" min="0" th:field="*{edadMaxima}"><small class="field-error" th:errors="*{edadMaxima}"></small></div>
+        <div><label for="cupoMaximo">Cupo máximo</label><input id="cupoMaximo" type="number" min="1" th:field="*{cupoMaximo}"><small class="field-error" th:errors="*{cupoMaximo}"></small></div>
+        <div><label for="cuotaMensual">Cuota mensual</label><input id="cuotaMensual" type="number" min="0" step="0.01" th:field="*{cuotaMensual}"><small class="field-error" th:errors="*{cuotaMensual}"></small></div>
+        <div class="form-actions"><button class="button" type="submit">Guardar actividad</button></div>
+    </form>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
