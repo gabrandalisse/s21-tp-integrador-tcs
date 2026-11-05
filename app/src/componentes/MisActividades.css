@@ -1,0 +1,167 @@
+.mis__perfil {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: -32px;
+  padding: 32px 0 96px;
+  background: var(--noche);
+  /* Fondo a todo el ancho de la ventana sin salir del contenedor */
+  box-shadow: 0 0 0 100vmax var(--noche);
+  clip-path: inset(0 -100vmax);
+  color: var(--blanco);
+}
+
+.mis__perfil > * {
+  position: relative;
+}
+
+.avatar--grande {
+  width: 64px;
+  height: 64px;
+  border-width: 3px;
+  font-size: 22px;
+}
+
+.mis__datos {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mis__datos h1 {
+  font-size: 28px;
+  color: var(--blanco);
+}
+
+.mis__datos span {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.mis__perfil .insignia {
+  margin-left: auto;
+}
+
+.mis__contenido {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  margin-top: -64px;
+  position: relative;
+  z-index: 1;
+}
+
+.mis__columna {
+  display: flex;
+  flex-direction: column;
+  padding-top: 76px;
+}
+
+.mis__columna .mensaje:first-child {
+  margin-top: 0;
+}
+
+.mis__titulo {
+  margin: 4px 0 14px;
+  font-size: 22px;
+}
+
+.inscripciones {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inscripcion {
+  padding: 16px;
+  background: var(--blanco);
+  border-radius: 18px;
+  box-shadow: var(--sombra-1);
+}
+
+.inscripcion__fila {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.inscripcion__icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  color: var(--blanco);
+}
+
+.inscripcion__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.inscripcion__info h3 {
+  font-size: 18px;
+}
+
+.inscripcion__info p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--tinta-500);
+}
+
+.inscripcion__monto {
+  font-size: 16px;
+}
+
+.inscripcion__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--borde-100);
+  font-size: 13px;
+  color: var(--tinta-500);
+}
+
+.inscripcion__pie .boton {
+  min-height: 40px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .mis__contenido {
+    grid-template-columns: 1fr;
+  }
+
+  .mis__columna {
+    padding-top: 8px;
+  }
+}
+
+@media (max-width: 700px) {
+  .mis__perfil {
+    margin-top: -20px;
+    padding: 24px 0 88px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .avatar--grande {
+    width: 56px;
+    height: 56px;
+    font-size: 19px;
+  }
+
+  .mis__datos h1 {
+    font-size: 22px;
+  }
+}

@@ -1,0 +1,165 @@
+.confirmacion {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 56px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  background: var(--noche);
+  color: var(--blanco);
+  border-radius: var(--radio-panel);
+  overflow: hidden;
+  animation: aparecer 0.3s ease;
+}
+
+.confirmacion::before,
+.confirmacion::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  border-radius: 50%;
+  border: 2px solid rgba(217, 162, 27, 0.12);
+  pointer-events: none;
+}
+
+.confirmacion::before {
+  top: -20px;
+  width: 420px;
+  height: 420px;
+  margin-left: -210px;
+}
+
+.confirmacion::after {
+  top: 40px;
+  width: 300px;
+  height: 300px;
+  margin-left: -150px;
+  border-color: rgba(217, 162, 27, 0.16);
+}
+
+.confirmacion__encabezado {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.confirmacion__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--vaina);
+  color: var(--noche);
+  box-shadow: 0 0 0 10px rgba(217, 162, 27, 0.18);
+}
+
+.confirmacion__encabezado h1 {
+  font-stretch: 108%;
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--blanco);
+}
+
+.confirmacion__encabezado p {
+  margin: 0;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.confirmacion__encabezado strong {
+  color: var(--blanco);
+}
+
+.confirmacion__resumen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border-radius: var(--radio-tarjeta);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.confirmacion__actividad {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.confirmacion__actividad div {
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmacion__actividad span:not(.confirmacion__icono) {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.confirmacion__icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  color: var(--blanco);
+}
+
+.confirmacion__cuota {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.confirmacion__monto {
+  display: flex;
+  flex-shrink: 0;
+  white-space: nowrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.confirmacion__monto .importe {
+  font-size: 26px;
+  color: var(--blanco);
+}
+
+.insignia--marca-clara {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--vaina);
+  color: var(--noche);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.confirmacion__acciones {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (max-width: 700px) {
+  .confirmacion {
+    margin: -20px -16px 0;
+    min-height: calc(100vh - 64px);
+    border-radius: 0;
+    padding: 64px 20px 120px;
+  }
+}

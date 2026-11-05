@@ -4,31 +4,267 @@
     "description": "Endpoints de la API REST del Club Los Algarrobos. Los casos RN1 y RN5 requieren preparar los datos indicados en la descripción de cada solicitud.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
-  "variable": [{ "key": "baseUrl", "value": "http://localhost:8080" }],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
   "item": [
-    { "name": "Actividades", "item": [
-      { "name": "Listar actividades", "request": { "method": "GET", "url": "{{baseUrl}}/api/actividades" } },
-      { "name": "Filtrar por disciplina", "request": { "method": "GET", "url": "{{baseUrl}}/api/actividades?disciplina=Fútbol" } },
-      { "name": "Detalle de actividad", "request": { "method": "GET", "url": "{{baseUrl}}/api/actividades/1" } },
-      { "name": "Detalle inexistente (404)", "request": { "method": "GET", "url": "{{baseUrl}}/api/actividades/9999" } },
-      { "name": "Crear actividad", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Pilates API\",\n  \"disciplina\": \"Bienestar\",\n  \"profesor\": \"Ana Test\",\n  \"dias\": \"Lun y Mié\",\n  \"horario\": \"18:00\",\n  \"edadMinima\": 18,\n  \"edadMaxima\": 70,\n  \"cupoMaximo\": 12,\n  \"cuotaMensual\": 18000\n}" }, "url": "{{baseUrl}}/api/actividades" } },
-      { "name": "Modificar actividad", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Fútbol infantil\",\n  \"disciplina\": \"Fútbol\",\n  \"profesor\": \"Diego Ferreyra\",\n  \"dias\": \"Lun y Mié\",\n  \"horario\": \"18:00\",\n  \"edadMinima\": 6,\n  \"edadMaxima\": 12,\n  \"cupoMaximo\": 40,\n  \"cuotaMensual\": 18000\n}" }, "url": "{{baseUrl}}/api/actividades/1" } },
-      { "name": "Eliminar actividad sin inscriptos (204)", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/actividades/{{actividadSinInscriptosId}}" } },
-      { "name": "Eliminar actividad con inscriptos (409)", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/actividades/6" } }
-    ]},
-    { "name": "Socios", "item": [
-      { "name": "Buscar socio por DNI", "request": { "method": "GET", "url": "{{baseUrl}}/api/socios/dni/40123456" } },
-      { "name": "Buscar DNI inexistente (404)", "request": { "method": "GET", "url": "{{baseUrl}}/api/socios/dni/99999999" } },
-      { "name": "Inscripciones activas del socio", "request": { "method": "GET", "url": "{{baseUrl}}/api/socios/1/inscripciones" } }
-    ]},
-    { "name": "Inscripciones", "item": [
-      { "name": "Inscripción válida", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{ \"socioId\": {{socioDisponibleId}}, \"actividadId\": {{actividadDisponibleId}} }" }, "url": "{{baseUrl}}/api/inscripciones" } },
-      { "name": "RN1 - sin cupo", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{ \"socioId\": {{socioParaCupoId}}, \"actividadId\": {{actividadSinCupoId}}" }, "url": "{{baseUrl}}/api/inscripciones" } },
-      { "name": "RN2 - duplicada", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{ \"socioId\": 1, \"actividadId\": 6 }" }, "url": "{{baseUrl}}/api/inscripciones" } },
-      { "name": "RN3 - edad fuera de rango", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{ \"socioId\": 12, \"actividadId\": 1 }" }, "url": "{{baseUrl}}/api/inscripciones" } },
-      { "name": "RN4 - socio moroso", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{ \"socioId\": 3, \"actividadId\": 8 }" }, "url": "{{baseUrl}}/api/inscripciones" } },
-      { "name": "RN5 - máximo de actividades", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{ \"socioId\": {{socioConTresActividadesId}}, \"actividadId\": {{actividadDisponibleId}}" }, "url": "{{baseUrl}}/api/inscripciones" } },
-      { "name": "Baja lógica", "request": { "method": "PUT", "url": "{{baseUrl}}/api/inscripciones/{{inscripcionActivaId}}/baja" } }
-    ]}
+    {
+      "name": "Actividades",
+      "item": [
+        {
+          "name": "Listar actividades",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/actividades"
+          }
+        },
+        {
+          "name": "Filtrar por disciplina",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/actividades?disciplina=Fútbol"
+          }
+        },
+        {
+          "name": "Detalle de actividad",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/actividades/1"
+          }
+        },
+        {
+          "name": "Detalle inexistente (404)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/actividades/9999"
+          }
+        },
+        {
+          "name": "Crear actividad",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Pilates API\",\n  \"disciplina\": \"Bienestar\",\n  \"profesor\": \"Ana Test\",\n  \"dias\": \"Lun y Mié\",\n  \"horario\": \"18:00\",\n  \"edadMinima\": 18,\n  \"edadMaxima\": 70,\n  \"cupoMaximo\": 12,\n  \"cuotaMensual\": 18000\n}"
+            },
+            "url": "{{baseUrl}}/api/actividades"
+          }
+        },
+        {
+          "name": "Modificar actividad",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Fútbol infantil\",\n  \"disciplina\": \"Fútbol\",\n  \"profesor\": \"Diego Ferreyra\",\n  \"dias\": \"Lun y Mié\",\n  \"horario\": \"18:00\",\n  \"edadMinima\": 6,\n  \"edadMaxima\": 12,\n  \"cupoMaximo\": 40,\n  \"cuotaMensual\": 18000\n}"
+            },
+            "url": "{{baseUrl}}/api/actividades/1"
+          }
+        },
+        {
+          "name": "Eliminar actividad sin inscriptos (204)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/actividades/{{actividadSinInscriptosId}}"
+          }
+        },
+        {
+          "name": "Eliminar actividad con inscriptos (409)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/actividades/6"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Socios",
+      "item": [
+        {
+          "name": "Login de socio (200)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"40123456\",\n  \"clave\": \"40123456\"\n}"
+            },
+            "url": "{{baseUrl}}/api/socios/login"
+          }
+        },
+        {
+          "name": "Login con contraseña incorrecta (401)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"40123456\",\n  \"clave\": \"1234\"\n}"
+            },
+            "url": "{{baseUrl}}/api/socios/login"
+          }
+        },
+        {
+          "name": "Buscar socio por DNI",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/socios/dni/40123456"
+          }
+        },
+        {
+          "name": "Buscar DNI inexistente (404)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/socios/dni/99999999"
+          }
+        },
+        {
+          "name": "Inscripciones activas del socio",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/socios/1/inscripciones"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inscripciones",
+      "item": [
+        {
+          "name": "Inscripción válida",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"socioId\": {{socioDisponibleId}}, \"actividadId\": {{actividadDisponibleId}} }"
+            },
+            "url": "{{baseUrl}}/api/inscripciones"
+          }
+        },
+        {
+          "name": "RN1 - sin cupo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"socioId\": {{socioParaCupoId}}, \"actividadId\": {{actividadSinCupoId}}"
+            },
+            "url": "{{baseUrl}}/api/inscripciones"
+          }
+        },
+        {
+          "name": "RN2 - duplicada",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"socioId\": 1, \"actividadId\": 6 }"
+            },
+            "url": "{{baseUrl}}/api/inscripciones"
+          }
+        },
+        {
+          "name": "RN3 - edad fuera de rango",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"socioId\": 12, \"actividadId\": 1 }"
+            },
+            "url": "{{baseUrl}}/api/inscripciones"
+          }
+        },
+        {
+          "name": "RN4 - socio moroso",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"socioId\": 3, \"actividadId\": 8 }"
+            },
+            "url": "{{baseUrl}}/api/inscripciones"
+          }
+        },
+        {
+          "name": "RN5 - máximo de actividades",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"socioId\": {{socioConTresActividadesId}}, \"actividadId\": {{actividadDisponibleId}}"
+            },
+            "url": "{{baseUrl}}/api/inscripciones"
+          }
+        },
+        {
+          "name": "Baja lógica",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/inscripciones/{{inscripcionActivaId}}/baja"
+          }
+        }
+      ]
+    }
   ]
 }

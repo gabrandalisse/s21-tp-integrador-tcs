@@ -1,0 +1,459 @@
+/* ==========================================================
+   Componentes base del design system (botones, campos,
+   insignias, mensajes, medidor de cupo). Clases reutilizables.
+   ========================================================== */
+.aplicacion {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.contenido {
+  flex: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 20px 56px;
+}
+
+.contenido--completo {
+  max-width: none;
+  padding: 0;
+  display: flex;
+}
+
+.texto-suave {
+  color: var(--tinta-500);
+}
+
+/* Etiqueta: Archivo condensada en mayúsculas */
+.sobretitulo {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-stretch: 75%;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tinta-700);
+}
+
+.importe {
+  font-family: var(--fuente-titulo);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--noche);
+}
+
+/* ---------- Botones ---------- */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blanco);
+  background: var(--monte);
+  border: none;
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.boton:hover:not(:disabled) {
+  background: var(--monte-oscuro);
+}
+
+.boton:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.boton:focus-visible,
+.chip:focus-visible,
+.campo:focus-visible {
+  outline: 3px solid var(--vaina);
+  outline-offset: 2px;
+}
+
+.boton:disabled {
+  background: var(--deshabilitado);
+  color: var(--deshabilitado-texto);
+  cursor: not-allowed;
+}
+
+/* Vaina: el paso siguiente después de un éxito */
+.boton--vaina {
+  background: var(--vaina);
+  color: var(--noche);
+}
+
+.boton--vaina:hover:not(:disabled) {
+  background: var(--vaina-oscura);
+}
+
+.boton--secundario {
+  background: var(--blanco);
+  color: var(--monte);
+  border: 1.5px solid var(--borde-300);
+}
+
+.boton--secundario:hover:not(:disabled) {
+  background: var(--exito-fondo);
+  border-color: var(--monte);
+}
+
+.boton--peligro {
+  background: var(--blanco);
+  color: var(--error);
+  border: 1.5px solid var(--error-borde);
+}
+
+.boton--peligro:hover:not(:disabled) {
+  background: var(--error-fondo);
+  border-color: var(--error);
+}
+
+.boton--fantasma {
+  background: transparent;
+  color: var(--blanco);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.boton--fantasma:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.boton--grande {
+  min-height: 56px;
+  padding: 0 28px;
+  font-size: 17px;
+}
+
+.boton--bloque {
+  width: 100%;
+}
+
+.boton-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--blanco);
+  cursor: pointer;
+}
+
+.boton-icono:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+/* ---------- Campos ---------- */
+.campo {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  font-size: 18px;
+  color: var(--tinta-900);
+  background: var(--blanco);
+  border: 2px solid var(--borde-200);
+  border-radius: var(--radio-input);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.campo:focus {
+  outline: none;
+  border-color: var(--monte);
+  box-shadow: 0 0 0 4px rgba(27, 77, 51, 0.14);
+}
+
+.campo--error,
+.campo--error:focus {
+  border-color: var(--error);
+  box-shadow: none;
+}
+
+.campo__ayuda {
+  margin: 0;
+  font-size: 13px;
+  color: var(--tinta-500);
+}
+
+.campo__error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 1.3em;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--error);
+}
+
+/* ---------- Chips de filtro ---------- */
+.chip {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tinta-900);
+  background: var(--blanco);
+  border: 1.5px solid var(--borde-200);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.chip:hover {
+  border-color: var(--borde-300);
+}
+
+/* Selector de atributo: el chip presionado */
+.chip[aria-pressed='true'] {
+  color: var(--blanco);
+  background: var(--noche);
+  border-color: var(--noche);
+}
+
+.chip__punto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* ---------- Insignias ---------- */
+.insignia {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 11px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  border-radius: 999px;
+}
+
+.insignia--exito {
+  background: var(--exito-fondo);
+  color: var(--exito);
+}
+
+.insignia--aviso {
+  background: var(--aviso-fondo);
+  color: var(--aviso);
+}
+
+.insignia--error {
+  background: var(--error-fondo);
+  color: var(--error);
+}
+
+.insignia--marca {
+  background: var(--noche);
+  color: var(--vaina);
+}
+
+/* ---------- Mensajes ---------- */
+.mensaje {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 16px 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 15px;
+  animation: aparecer 0.2s ease;
+}
+
+.mensaje__icono {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.mensaje__cuerpo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mensaje__titulo {
+  font-weight: 700;
+}
+
+.mensaje__regla {
+  align-self: flex-start;
+  padding: 1px 7px;
+  border-radius: 6px;
+  background: var(--blanco);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.mensaje__cerrar {
+  display: inline-flex;
+  padding: 4px;
+  color: inherit;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.mensaje__cerrar:hover {
+  opacity: 1;
+}
+
+.mensaje--error {
+  background: var(--error-fondo);
+  color: #7A1A12;
+}
+
+.mensaje--error .mensaje__icono,
+.mensaje--error .mensaje__regla {
+  color: var(--error);
+}
+
+.mensaje--exito {
+  background: var(--exito-fondo);
+  color: #0F3D24;
+}
+
+.mensaje--exito .mensaje__icono {
+  color: var(--exito);
+}
+
+.mensaje--aviso {
+  background: var(--aviso-fondo);
+  color: #5C4100;
+}
+
+.mensaje--aviso .mensaje__icono {
+  color: var(--aviso);
+}
+
+.mensaje--info {
+  background: var(--info-fondo);
+  color: #0E3A63;
+}
+
+.mensaje--info .mensaje__icono {
+  color: var(--info);
+}
+
+/* ---------- Medidor de cupo ---------- */
+.medidor {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.medidor__texto {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--tinta-500);
+}
+
+.medidor__texto strong {
+  color: var(--tinta-900);
+}
+
+.medidor--casi .medidor__texto strong {
+  color: var(--aviso);
+}
+
+.medidor--completo .medidor__texto strong {
+  color: var(--error);
+}
+
+.medidor__barra {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--borde-100);
+  overflow: hidden;
+}
+
+.medidor__relleno {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-disciplina, var(--monte));
+  transition: width 0.4s ease;
+}
+
+.medidor--casi .medidor__relleno {
+  background: var(--vaina);
+}
+
+.medidor--completo .medidor__relleno {
+  background: var(--error);
+}
+
+/* ---------- Estado vacío y carga ---------- */
+.vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 36px 24px;
+  text-align: center;
+  border: 2px dashed var(--borde-300);
+  border-radius: 22px;
+}
+
+.vacio__icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: var(--exito-fondo);
+  color: var(--monte);
+}
+
+.vacio h2 {
+  font-size: 20px;
+}
+
+.vacio p {
+  margin: 0;
+  color: var(--tinta-500);
+}
+
+.cargando {
+  padding: 48px 0;
+  text-align: center;
+  color: var(--tinta-500);
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .contenido {
+    padding: 20px 16px 32px;
+  }
+  .contenido--completo {
+    padding: 0;
+  }
+}

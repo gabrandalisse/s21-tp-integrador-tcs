@@ -40,6 +40,18 @@ public class SocioService {
                 .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró un socio con ese DNI."));
     }
 
+    // Ingreso del socio a la app "Mi Club". Por ahora la contraseña de cada socio es su propio DNI.
+    // Si el DNI no existe o la contraseña no coincide se responde el mismo mensaje,
+    // así nadie puede averiguar qué DNI están cargados en el club.
+    @Transactional(readOnly = true)
+    public Socio ingresar(String dni, String clave) {
+        Socio socio = socioRepository.findByDni(dni == null ? "" : dni.trim()).orElse(null);
+        if (socio == null || !socio.getDni().equals(clave)) {
+            throw new CredencialesInvalidasException("DNI o contraseña incorrectos.");
+        }
+        return socio;
+    }
+
     public Socio guardar(Socio socio) {
         String dni = socio.getDni() == null ? "" : socio.getDni().trim();
         boolean repetido = socio.getId() == null

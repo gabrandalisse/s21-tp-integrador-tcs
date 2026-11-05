@@ -1,0 +1,86 @@
+/* ==========================================================
+   Design system Los Algarrobos — tokens base
+   Colores, tipografía, radios y sombras compartidos por toda la app.
+   ========================================================== */
+:root {
+  /* Marca */
+  --noche: #0F2A1D;
+  --monte: #1B4D33;
+  --monte-oscuro: #143D28;
+  --hoja: #4E9A6A;
+  --vaina: #D9A21B;
+  --vaina-oscura: #C08D12;
+  --corteza: #B07A45;
+  --arena: #F5F1E8;
+  --arena-oscura: #E9E3D4;
+
+  /* Neutros */
+  --tinta-900: #14201A;
+  --tinta-700: #3D4A42;
+  --tinta-500: #5B6B61;
+  --borde-300: #C9C0AB;
+  --borde-200: #E4DDCC;
+  --borde-100: #EFEADF;
+  --blanco: #FFFFFF;
+  --deshabilitado: #E4DDCC;
+  --deshabilitado-texto: #6B6455;
+
+  /* Estados */
+  --exito: #1F7A4D;
+  --exito-fondo: #E6F2EA;
+  --error: #B42318;
+  --error-fondo: #FBE9E7;
+  --error-borde: #F1C2BC;
+  --aviso: #8A6100;
+  --aviso-fondo: #FBF1D9;
+  --info: #1C64A8;
+  --info-fondo: #E5EFF9;
+
+  /* Forma */
+  --radio-chip: 8px;
+  --radio-input: 12px;
+  --radio-tarjeta: 20px;
+  --radio-panel: 28px;
+  --sombra-1: 0 1px 2px rgba(15, 42, 29, 0.08);
+  --sombra-2: 0 6px 18px rgba(15, 42, 29, 0.10);
+  --sombra-3: 0 16px 40px rgba(15, 42, 29, 0.18);
+
+  /* Tipografía */
+  --fuente-titulo: 'Archivo', system-ui, sans-serif;
+  --fuente-texto: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente-texto);
+  font-size: 16px;
+  color: var(--tinta-900);
+  background: var(--arena);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fuente-titulo);
+  font-weight: 800;
+  color: var(--noche);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+a {
+  color: var(--monte);
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}

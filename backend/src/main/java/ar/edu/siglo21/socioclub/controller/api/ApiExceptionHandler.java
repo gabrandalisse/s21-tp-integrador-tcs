@@ -1,6 +1,7 @@
 package ar.edu.siglo21.socioclub.controller.api;
 
 import ar.edu.siglo21.socioclub.dto.ErrorResponse;
+import ar.edu.siglo21.socioclub.service.CredencialesInvalidasException;
 import ar.edu.siglo21.socioclub.service.RecursoNoEncontradoException;
 import ar.edu.siglo21.socioclub.service.ReglaNegocioException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,6 +17,11 @@ public class ApiExceptionHandler {
     public ResponseEntity<ErrorResponse> regla(ReglaNegocioException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(new ErrorResponse(exception.getMessage(), exception.getRegla()));
+    }
+
+    @ExceptionHandler(CredencialesInvalidasException.class)
+    public ResponseEntity<ErrorResponse> credencialesInvalidas(CredencialesInvalidasException exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse(exception.getMessage(), null));
     }
 
     @ExceptionHandler(RecursoNoEncontradoException.class)

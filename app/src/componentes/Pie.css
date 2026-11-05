@@ -1,0 +1,26 @@
+.pie {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 28px 20px;
+  background: var(--noche);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+.pie p {
+  margin: 0;
+}
+
+.pie__club {
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+  color: var(--blanco);
+}
+
+@media (max-width: 700px) {
+  .pie {
+    padding-bottom: 120px;
+  }
+}

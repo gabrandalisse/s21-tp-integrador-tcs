@@ -1,0 +1,113 @@
+.lista__portada {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 32px;
+  border-radius: var(--radio-panel);
+  background: var(--noche);
+  color: var(--blanco);
+  overflow: hidden;
+}
+
+/* Anillos decorativos del sistema */
+.lista__portada::after {
+  content: '';
+  position: absolute;
+  right: -90px;
+  top: -120px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 2px solid rgba(217, 162, 27, 0.18);
+  box-shadow: 0 0 0 60px rgba(217, 162, 27, 0.04);
+}
+
+.lista__saludo {
+  margin: 0 0 6px;
+  font-weight: 600;
+  color: var(--vaina);
+}
+
+.lista__portada h1 {
+  max-width: 560px;
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--blanco);
+}
+
+.lista__resumen {
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.lista__filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.lista__edad {
+  display: flex;
+  max-width: 640px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: -6px 0 20px;
+}
+
+.lista__edad .lista__campo-edad {
+  width: 96px;
+  height: 40px;
+  padding: 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.lista__limpiar {
+  min-height: 40px;
+  padding: 0 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--monte);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.lista__ayuda {
+  flex-basis: 100%;
+}
+
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Celular: tarjetas en una sola columna y filtros con scroll horizontal */
+@media (max-width: 600px) {
+  .grilla {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .lista__portada {
+    padding: 24px 20px;
+    border-radius: 24px;
+  }
+
+  .lista__filtros {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 0 16px 4px;
+    scrollbar-width: none;
+  }
+
+  .lista__filtros::-webkit-scrollbar {
+    display: none;
+  }
+}
