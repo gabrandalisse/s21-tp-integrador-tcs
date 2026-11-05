@@ -1,0 +1,161 @@
+.detalle {
+  --color-disciplina: var(--monte);
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--blanco);
+  border-radius: var(--radio-panel);
+  box-shadow: var(--sombra-2);
+  overflow: hidden;
+}
+
+/* ---------- Portada en el color de la disciplina ---------- */
+.detalle__portada {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 28px 32px;
+  background: var(--color-disciplina);
+  color: var(--blanco);
+  overflow: hidden;
+}
+
+.detalle__marca-agua {
+  position: absolute;
+  right: -40px;
+  top: -10px;
+  color: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.detalle__titulos {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detalle__disciplina {
+  font-family: var(--fuente-titulo);
+  font-stretch: 75%;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.88;
+}
+
+.detalle__titulos h1 {
+  font-stretch: 105%;
+  font-weight: 900;
+  font-size: clamp(34px, 5vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--blanco);
+}
+
+.detalle__profe {
+  font-size: 16px;
+  opacity: 0.88;
+}
+
+/* ---------- Cuerpo ---------- */
+.detalle__cuerpo {
+  padding: 24px 28px 8px;
+  background: var(--arena);
+}
+
+.detalle__datos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 14px;
+}
+
+.detalle__datos div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--blanco);
+}
+
+.detalle__datos svg {
+  color: var(--color-disciplina);
+  margin-bottom: 2px;
+}
+
+.detalle__datos dt {
+  font-size: 12px;
+  color: var(--tinta-500);
+}
+
+.detalle__datos dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.detalle__cupo {
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--blanco);
+}
+
+/* ---------- Barra de acción ---------- */
+.detalle__accion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 28px 24px;
+  background: var(--blanco);
+  border-top: 1px solid var(--borde-100);
+}
+
+.detalle__precio {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.detalle--sin-cupo .detalle__precio {
+  color: var(--tinta-500);
+}
+
+@media (max-width: 700px) {
+  .detalle {
+    margin: -20px -16px 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .detalle__portada {
+    padding: 20px 20px 28px;
+  }
+
+  .detalle__cuerpo {
+    padding: 20px 20px 8px;
+  }
+
+  .detalle__datos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Barra de acción fija sobre la navegación inferior */
+  .detalle__accion {
+    position: sticky;
+    bottom: calc(96px + env(safe-area-inset-bottom));
+    z-index: 5;
+    margin: 0 12px;
+    padding: 14px 16px;
+    border-radius: 20px;
+    border-top: none;
+    box-shadow: var(--sombra-3);
+  }
+
+  .detalle__precio {
+    font-size: 24px;
+  }
+}

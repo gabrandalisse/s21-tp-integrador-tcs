@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividades | Secretaría</title>
-    <link rel="stylesheet" th:href="@{/css/backoffice.css}">
+    <link rel="stylesheet" th:href="@{/css/backoffice.css}"><link rel="icon" type="image/svg+xml" th:href="@{/favicon.svg}">
 </head>
 <body>
 <header th:replace="~{fragments/header :: header('Actividades')}"></header>
@@ -23,7 +23,7 @@
                 <td><strong th:text="${actividad.nombre}">Actividad</strong><small th:text="${actividad.disciplina + ' · ' + actividad.profesor}"></small></td>
                 <td th:text="${actividad.dias + ' · ' + actividad.horario + ' h'}"></td>
                 <td th:text="${actividad.edadMinima + ' a ' + actividad.edadMaxima + ' años'}"></td>
-                <td><strong th:text="${cuposDisponibles[actividad.id] + ' disponibles'}"></strong><small th:text="${'de ' + actividad.cupoMaximo + ' lugares'}"></small></td>
+                <td><strong th:text="${cuposDisponibles[actividad.id] == 1 ? '1 disponible' : cuposDisponibles[actividad.id] + ' disponibles'}"></strong><small th:text="${'de ' + actividad.cupoMaximo + ' lugares'}"></small></td>
                 <td th:text="${'$ ' + #numbers.formatDecimal(actividad.cuotaMensual, 1, 'POINT', 0, 'COMMA')}"></td>
                 <td class="actions">
                     <a th:href="@{/actividades/{id}/inscriptos(id=${actividad.id})}">Inscriptos</a>

@@ -1,13 +1,12 @@
 package ar.edu.siglo21.socioclub.controller.api;
 
 import ar.edu.siglo21.socioclub.dto.InscripcionResponse;
+import ar.edu.siglo21.socioclub.dto.LoginRequest;
 import ar.edu.siglo21.socioclub.dto.SocioResponse;
 import ar.edu.siglo21.socioclub.service.InscripcionService;
 import ar.edu.siglo21.socioclub.service.SocioService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +19,12 @@ public class ApiSocioController {
     public ApiSocioController(SocioService socioService, InscripcionService inscripcionService) {
         this.socioService = socioService;
         this.inscripcionService = inscripcionService;
+    }
+
+    // Ingreso a la app: 200 con el socio si el DNI y la contraseña coinciden, 401 si no.
+    @PostMapping("/login")
+    public SocioResponse login(@Valid @RequestBody LoginRequest request) {
+        return new SocioResponse(socioService.ingresar(request.getDni(), request.getClave()));
     }
 
     @GetMapping("/dni/{dni}")

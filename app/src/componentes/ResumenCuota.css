@@ -1,0 +1,61 @@
+.resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  background: var(--blanco);
+  border-radius: 22px;
+  box-shadow: var(--sombra-3);
+}
+
+.resumen__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.resumen__total {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+}
+
+.resumen__total .importe {
+  font-weight: 900;
+  font-size: 42px;
+  line-height: 1;
+}
+
+.resumen__total s {
+  font-size: 15px;
+  color: var(--tinta-500);
+}
+
+.resumen__lineas {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--borde-100);
+}
+
+.resumen__lineas li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 14px;
+  color: var(--tinta-700);
+}
+
+.resumen__descuento {
+  font-weight: 700;
+  color: var(--exito) !important;
+}
+
+.resumen__pista {
+  margin: 0;
+  font-size: 13px;
+  color: var(--tinta-500);
+}

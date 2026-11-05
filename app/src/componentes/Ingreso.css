@@ -1,0 +1,182 @@
+.ingreso {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--noche);
+}
+
+/* ---------- Portada ---------- */
+.ingreso__portada {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 64px clamp(28px, 7vw, 96px);
+  color: var(--blanco);
+  overflow: hidden;
+}
+
+/* Anillos decorativos en vaina */
+.ingreso__portada::before,
+.ingreso__portada::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(217, 162, 27, 0.16);
+  pointer-events: none;
+}
+
+.ingreso__portada::before {
+  right: -160px;
+  bottom: -160px;
+  width: 480px;
+  height: 480px;
+}
+
+.ingreso__portada::after {
+  right: -60px;
+  bottom: -60px;
+  width: 280px;
+  height: 280px;
+  border-color: rgba(217, 162, 27, 0.1);
+}
+
+.ingreso__club {
+  margin: 8px 0 0;
+  font-family: var(--fuente-titulo);
+  font-stretch: 75%;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--vaina);
+}
+
+.ingreso__titulo {
+  font-stretch: 108%;
+  font-weight: 900;
+  font-size: clamp(44px, 5.5vw, 76px);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  color: var(--blanco);
+}
+
+.ingreso__titulo span {
+  color: var(--vaina);
+}
+
+.ingreso__bajada {
+  max-width: 420px;
+  margin: 0;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ---------- Hoja con el formulario ---------- */
+.ingreso__hoja {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  background: var(--arena);
+}
+
+.ingreso__formulario {
+  width: 100%;
+  max-width: 400px;
+}
+
+.ingreso__formulario h2 {
+  font-size: 30px;
+}
+
+.ingreso__formulario > .texto-suave {
+  margin: 4px 0 0;
+}
+
+.ingreso__formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.campo--dni {
+  height: 60px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.campo--clave {
+  height: 60px;
+  font-size: 20px;
+}
+
+.ingreso__etiqueta {
+  margin-top: 4px;
+}
+
+.ingreso__formulario .boton {
+  margin-top: 8px;
+}
+
+.ingreso__ayuda {
+  margin: 28px 0 0;
+  font-size: 14px;
+  text-align: center;
+  color: var(--tinta-500);
+}
+
+/* ---------- Celular: portada arriba, hoja arena redondeada abajo ---------- */
+@media (max-width: 800px) {
+  .ingreso {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .ingreso__portada {
+    padding: 56px 28px 40px;
+    gap: 14px;
+  }
+
+  .ingreso__portada::before {
+    right: -110px;
+    top: -90px;
+    bottom: auto;
+    width: 300px;
+    height: 300px;
+  }
+
+  .ingreso__portada::after {
+    right: -40px;
+    top: -20px;
+    bottom: auto;
+    width: 160px;
+    height: 160px;
+  }
+
+  .ingreso__titulo {
+    font-size: 44px;
+  }
+
+  .ingreso__bajada {
+    font-size: 16px;
+  }
+
+  .ingreso__hoja {
+    align-items: flex-start;
+    padding: 32px 24px 28px;
+    border-radius: 28px 28px 0 0;
+  }
+
+  .ingreso__formulario h2 {
+    font-size: 26px;
+  }
+
+  .ingreso__formulario form {
+    margin-top: 20px;
+  }
+}

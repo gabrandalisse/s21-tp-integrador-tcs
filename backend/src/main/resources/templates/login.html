@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar | Secretaría</title>
+    <link rel="stylesheet" th:href="@{/css/backoffice.css}">
+    <link rel="icon" type="image/svg+xml" th:href="@{/favicon.svg}">
+</head>
+<body>
+<main class="login">
+    <section class="login-portada">
+        <svg th:replace="~{fragments/logo :: logo(84)}"></svg>
+        <p class="eyebrow">Club Social y Deportivo Los Algarrobos</p>
+        <h1>Secretaría<br><span>del club.</span></h1>
+        <p>Socios, actividades e inscripciones en un solo lugar.</p>
+    </section>
+
+    <section class="login-hoja">
+        <form class="login-form" method="post" th:action="@{/login}">
+            <h2>Ingresá a la secretaría</h2>
+            <p class="ayuda">Ingresá con tu DNI y tu contraseña.</p>
+
+            <div th:if="${param.salio}" class="message success">Cerraste la sesión.</div>
+            <div th:if="${error}" class="message error" th:text="${error}"></div>
+
+            <div>
+                <label for="dni">DNI</label>
+                <input id="dni" name="dni" inputmode="numeric" autocomplete="username" th:value="${dni}" required autofocus>
+            </div>
+            <div>
+                <label for="clave">Contraseña</label>
+                <input id="clave" name="clave" type="password" autocomplete="current-password" required>
+            </div>
+            <button class="button block" type="submit">Ingresar</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>
