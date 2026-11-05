@@ -1,23 +1,81 @@
 {
   "info": {
     "name": "SocioClub API",
-    "description": "Endpoints de la API REST del Club Los Algarrobos. Los casos RN1 y RN5 requieren preparar los datos indicados en la descripción de cada solicitud.",
+    "description": "Endpoints de la API REST del Club Los Algarrobos (Anexo A del enunciado), con los casos exitosos y los de error de las reglas RN1 a RN5.\n\n**Cómo correrla:** levantar el backend sobre una base recién creada (las tablas las genera JPA y los datos iniciales salen de `backend/src/main/resources/data.sql`) y ejecutar las carpetas en orden: Actividades, Socios, Inscripciones. El orden importa porque las solicitudes de preparación dejan los datos en el estado que necesitan RN1 y RN5.\n\n**Los ids de las variables corresponden a esa base recién creada:** las ocho actividades quedan con los ids 1 a 8 y los quince socios con los ids 1 a 15, en el mismo orden en que los inserta `data.sql`. Las dos actividades que crea la colección toman los ids siguientes (9 y 10). Si la base ya tiene movimientos, revisar el id que devuelve cada 201 y actualizar la variable correspondiente.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:8080"
+      "value": "http://localhost:8080",
+      "description": "Raíz del backend Spring Boot."
+    },
+    {
+      "key": "socioAlDiaId",
+      "value": "1",
+      "description": "Lucía Alvarez (DNI 40123456), 22 años, cuota AL_DIA. Arranca inscripta en Ajedrez."
+    },
+    {
+      "key": "socioSegundoId",
+      "value": "2",
+      "description": "Mateo Benítez (DNI 39234567), cuota AL_DIA. Se usa para que RN1 la rechace a él."
+    },
+    {
+      "key": "socioMorosoId",
+      "value": "3",
+      "description": "Sofía Castro (DNI 42145678), cuota MOROSO. Caso de RN4."
+    },
+    {
+      "key": "socioMenorId",
+      "value": "12",
+      "description": "Bruno Molina (DNI 48934567), 17 años. Caso de RN3."
+    },
+    {
+      "key": "actividadFutbolId",
+      "value": "1",
+      "description": "Fútbol infantil, 6 a 12 años. Fuera del rango de Bruno (RN3)."
+    },
+    {
+      "key": "actividadNatacionId",
+      "value": "4",
+      "description": "Natación, 5 a 70 años, con cupo libre. Es la cuarta que se le intenta cargar a Lucía (RN5)."
+    },
+    {
+      "key": "actividadAjedrezId",
+      "value": "6",
+      "description": "Ajedrez, con los quince socios inscriptos. Sirve para RN2 y para el DELETE con inscriptos."
+    },
+    {
+      "key": "actividadYogaId",
+      "value": "8",
+      "description": "Yoga, 16 a 99 años, con cupo libre."
+    },
+    {
+      "key": "actividadPilatesId",
+      "value": "9",
+      "description": "Id que devuelve \"Crear actividad\". Se elimina en el caso de DELETE sin inscriptos."
+    },
+    {
+      "key": "actividadCupoUnoId",
+      "value": "10",
+      "description": "Id que devuelve la preparación de RN1: una actividad con cupoMaximo 1."
+    },
+    {
+      "key": "inscripcionDeBajaId",
+      "value": "15",
+      "description": "Inscripción de Carolina Paz en Ajedrez, creada por data.sql. Se le da la baja lógica."
     }
   ],
   "item": [
     {
       "name": "Actividades",
+      "description": "ABM de actividades y consulta del cupo disponible.",
       "item": [
         {
           "name": "Listar actividades",
           "request": {
             "method": "GET",
+            "description": "200 OK con las ocho actividades y su cupoDisponible.",
             "url": "{{baseUrl}}/api/actividades"
           }
         },
@@ -25,6 +83,7 @@
           "name": "Filtrar por disciplina",
           "request": {
             "method": "GET",
+            "description": "200 OK con las actividades de esa disciplina (el filtro no distingue mayúsculas).",
             "url": "{{baseUrl}}/api/actividades?disciplina=Fútbol"
           }
         },
@@ -32,20 +91,23 @@
           "name": "Detalle de actividad",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/actividades/1"
+            "description": "200 OK con una sola actividad.",
+            "url": "{{baseUrl}}/api/actividades/{{actividadFutbolId}}"
           }
         },
         {
           "name": "Detalle inexistente (404)",
           "request": {
             "method": "GET",
+            "description": "404 Not Found: no existe una actividad con ese id.",
             "url": "{{baseUrl}}/api/actividades/9999"
           }
         },
         {
-          "name": "Crear actividad",
+          "name": "Crear actividad (201)",
           "request": {
             "method": "POST",
+            "description": "201 Created con la actividad nueva y la cabecera Location. El id que devuelve es el de la variable actividadPilatesId.",
             "header": [
               {
                 "key": "Content-Type",
@@ -54,15 +116,21 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Pilates API\",\n  \"disciplina\": \"Bienestar\",\n  \"profesor\": \"Ana Test\",\n  \"dias\": \"Lun y Mié\",\n  \"horario\": \"18:00\",\n  \"edadMinima\": 18,\n  \"edadMaxima\": 70,\n  \"cupoMaximo\": 12,\n  \"cuotaMensual\": 18000\n}"
+              "raw": "{\n  \"nombre\": \"Pilates API\",\n  \"disciplina\": \"Bienestar\",\n  \"profesor\": \"Ana Test\",\n  \"dias\": \"Lun y Mié\",\n  \"horario\": \"18:00\",\n  \"edadMinima\": 18,\n  \"edadMaxima\": 70,\n  \"cupoMaximo\": 12,\n  \"cuotaMensual\": 18000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": "{{baseUrl}}/api/actividades"
           }
         },
         {
-          "name": "Modificar actividad",
+          "name": "Modificar actividad (200)",
           "request": {
             "method": "PUT",
+            "description": "200 OK con la actividad modificada. Acá se reenvían los mismos datos para no alterar los valores de la sección 3.3 del enunciado.",
             "header": [
               {
                 "key": "Content-Type",
@@ -71,34 +139,43 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Fútbol infantil\",\n  \"disciplina\": \"Fútbol\",\n  \"profesor\": \"Diego Ferreyra\",\n  \"dias\": \"Lun y Mié\",\n  \"horario\": \"18:00\",\n  \"edadMinima\": 6,\n  \"edadMaxima\": 12,\n  \"cupoMaximo\": 40,\n  \"cuotaMensual\": 18000\n}"
+              "raw": "{\n  \"nombre\": \"Fútbol infantil\",\n  \"disciplina\": \"Fútbol\",\n  \"profesor\": \"Diego Ferreyra\",\n  \"dias\": \"Lun y Mié\",\n  \"horario\": \"18:00\",\n  \"edadMinima\": 6,\n  \"edadMaxima\": 12,\n  \"cupoMaximo\": 40,\n  \"cuotaMensual\": 18000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": "{{baseUrl}}/api/actividades/1"
+            "url": "{{baseUrl}}/api/actividades/{{actividadFutbolId}}"
           }
         },
         {
           "name": "Eliminar actividad sin inscriptos (204)",
           "request": {
             "method": "DELETE",
-            "url": "{{baseUrl}}/api/actividades/{{actividadSinInscriptosId}}"
+            "description": "204 No Content: la actividad recién creada no tiene inscriptos activos, así que se borra.",
+            "url": "{{baseUrl}}/api/actividades/{{actividadPilatesId}}"
           }
         },
         {
           "name": "Eliminar actividad con inscriptos (409)",
           "request": {
             "method": "DELETE",
-            "url": "{{baseUrl}}/api/actividades/6"
+            "description": "409 Conflict: Ajedrez tiene inscriptos activos. Responde { \"error\": \"No se puede eliminar una actividad con inscriptos activos.\" }.",
+            "url": "{{baseUrl}}/api/actividades/{{actividadAjedrezId}}"
           }
         }
       ]
     },
     {
       "name": "Socios",
+      "description": "Ingreso del socio a la app y consulta de sus inscripciones.",
       "item": [
         {
           "name": "Login de socio (200)",
           "request": {
             "method": "POST",
+            "description": "200 OK con los datos del socio. La contraseña de cada socio es su mismo DNI.",
             "header": [
               {
                 "key": "Content-Type",
@@ -107,7 +184,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"dni\": \"40123456\",\n  \"clave\": \"40123456\"\n}"
+              "raw": "{\n  \"dni\": \"40123456\",\n  \"clave\": \"40123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": "{{baseUrl}}/api/socios/login"
           }
@@ -116,6 +198,7 @@
           "name": "Login con contraseña incorrecta (401)",
           "request": {
             "method": "POST",
+            "description": "401 Unauthorized con el mensaje \"DNI o contraseña incorrectos.\". Es el mismo mensaje que devuelve un DNI inexistente, para no revelar qué DNI están cargados.",
             "header": [
               {
                 "key": "Content-Type",
@@ -124,15 +207,21 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"dni\": \"40123456\",\n  \"clave\": \"1234\"\n}"
+              "raw": "{\n  \"dni\": \"40123456\",\n  \"clave\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": "{{baseUrl}}/api/socios/login"
           }
         },
         {
-          "name": "Buscar socio por DNI",
+          "name": "Buscar socio por DNI (200)",
           "request": {
             "method": "GET",
+            "description": "200 OK con el socio. Es el endpoint de ingreso del Anexo A.",
             "url": "{{baseUrl}}/api/socios/dni/40123456"
           }
         },
@@ -140,25 +229,37 @@
           "name": "Buscar DNI inexistente (404)",
           "request": {
             "method": "GET",
+            "description": "404 Not Found: no hay un socio con ese DNI.",
             "url": "{{baseUrl}}/api/socios/dni/99999999"
           }
         },
         {
-          "name": "Inscripciones activas del socio",
+          "name": "Inscripciones activas del socio (200)",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/socios/1/inscripciones"
+            "description": "200 OK con las inscripciones en estado ACTIVA. Las que están en BAJA no aparecen.",
+            "url": "{{baseUrl}}/api/socios/{{socioAlDiaId}}/inscripciones"
+          }
+        },
+        {
+          "name": "Inscripciones de un socio inexistente (404)",
+          "request": {
+            "method": "GET",
+            "description": "404 Not Found: no hay un socio con ese id.",
+            "url": "{{baseUrl}}/api/socios/9999/inscripciones"
           }
         }
       ]
     },
     {
       "name": "Inscripciones",
+      "description": "Alta y baja de inscripciones, con un caso por cada regla de negocio.\n\nLas solicitudes marcadas como *preparación* no son casos de prueba: dejan los datos en el estado que necesita la regla siguiente. Correr la carpeta en orden.",
       "item": [
         {
-          "name": "Inscripción válida",
+          "name": "Preparación RN1 · crear una actividad con cupo 1",
           "request": {
             "method": "POST",
+            "description": "201 Created. Con cupoMaximo 1 alcanza una sola inscripción para que la actividad quede completa y RN1 pueda rechazar la segunda. El id que devuelve es el de la variable actividadCupoUnoId: si no coincide con 10, actualizarla.",
             "header": [
               {
                 "key": "Content-Type",
@@ -167,15 +268,21 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{ \"socioId\": {{socioDisponibleId}}, \"actividadId\": {{actividadDisponibleId}} }"
+              "raw": "{\n  \"nombre\": \"Taller de prueba (cupo 1)\",\n  \"disciplina\": \"Bienestar\",\n  \"profesor\": \"Equipo de pruebas\",\n  \"dias\": \"Sáb\",\n  \"horario\": \"12:00\",\n  \"edadMinima\": 1,\n  \"edadMaxima\": 99,\n  \"cupoMaximo\": 1,\n  \"cuotaMensual\": 1000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": "{{baseUrl}}/api/inscripciones"
+            "url": "{{baseUrl}}/api/actividades"
           }
         },
         {
-          "name": "RN1 - sin cupo",
+          "name": "Inscripción válida (201)",
           "request": {
             "method": "POST",
+            "description": "201 Created: el socio está al día, dentro del rango de edad, no estaba inscripto y no llegó al máximo de tres actividades. Con esto la actividad de cupo 1 queda completa.",
             "header": [
               {
                 "key": "Content-Type",
@@ -184,15 +291,21 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{ \"socioId\": {{socioParaCupoId}}, \"actividadId\": {{actividadSinCupoId}}"
+              "raw": "{\n  \"socioId\": {{socioAlDiaId}},\n  \"actividadId\": {{actividadCupoUnoId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": "{{baseUrl}}/api/inscripciones"
           }
         },
         {
-          "name": "RN2 - duplicada",
+          "name": "RN1 · sin cupo (409)",
           "request": {
             "method": "POST",
+            "description": "409 Conflict con { \"error\": \"La actividad no tiene cupo disponible.\", \"regla\": \"RN1\" }. La actividad de cupo 1 ya se llenó en la solicitud anterior.",
             "header": [
               {
                 "key": "Content-Type",
@@ -201,15 +314,21 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{ \"socioId\": 1, \"actividadId\": 6 }"
+              "raw": "{\n  \"socioId\": {{socioSegundoId}},\n  \"actividadId\": {{actividadCupoUnoId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": "{{baseUrl}}/api/inscripciones"
           }
         },
         {
-          "name": "RN3 - edad fuera de rango",
+          "name": "RN2 · inscripción duplicada (409)",
           "request": {
             "method": "POST",
+            "description": "409 Conflict con { \"error\": \"El socio ya está inscripto en esta actividad.\", \"regla\": \"RN2\" }. data.sql deja a los quince socios inscriptos en Ajedrez.",
             "header": [
               {
                 "key": "Content-Type",
@@ -218,15 +337,21 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{ \"socioId\": 12, \"actividadId\": 1 }"
+              "raw": "{\n  \"socioId\": {{socioAlDiaId}},\n  \"actividadId\": {{actividadAjedrezId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": "{{baseUrl}}/api/inscripciones"
           }
         },
         {
-          "name": "RN4 - socio moroso",
+          "name": "RN3 · edad fuera de rango (409)",
           "request": {
             "method": "POST",
+            "description": "409 Conflict con \"regla\": \"RN3\" y el rango permitido en el mensaje: Bruno tiene 17 años y Fútbol infantil es de 6 a 12.",
             "header": [
               {
                 "key": "Content-Type",
@@ -235,15 +360,21 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{ \"socioId\": 3, \"actividadId\": 8 }"
+              "raw": "{\n  \"socioId\": {{socioMenorId}},\n  \"actividadId\": {{actividadFutbolId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": "{{baseUrl}}/api/inscripciones"
           }
         },
         {
-          "name": "RN5 - máximo de actividades",
+          "name": "RN4 · socio moroso (409)",
           "request": {
             "method": "POST",
+            "description": "409 Conflict con { \"error\": \"Debe regularizar su cuota en secretaría.\", \"regla\": \"RN4\" }. Sofía Castro tiene la cuota MOROSO.",
             "header": [
               {
                 "key": "Content-Type",
@@ -252,16 +383,76 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{ \"socioId\": {{socioConTresActividadesId}}, \"actividadId\": {{actividadDisponibleId}}"
+              "raw": "{\n  \"socioId\": {{socioMorosoId}},\n  \"actividadId\": {{actividadYogaId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": "{{baseUrl}}/api/inscripciones"
           }
         },
         {
-          "name": "Baja lógica",
+          "name": "Preparación RN5 · tercera actividad del socio",
+          "request": {
+            "method": "POST",
+            "description": "201 Created. Con Ajedrez y la actividad de cupo 1, Yoga es la tercera inscripción activa de Lucía, que es el máximo que permite RN5.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": {{socioAlDiaId}},\n  \"actividadId\": {{actividadYogaId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/inscripciones"
+          }
+        },
+        {
+          "name": "RN5 · máximo de 3 actividades (409)",
+          "request": {
+            "method": "POST",
+            "description": "409 Conflict con { \"error\": \"Alcanzó el máximo de 3 actividades.\", \"regla\": \"RN5\" }. Sería la cuarta inscripción activa de Lucía.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": {{socioAlDiaId}},\n  \"actividadId\": {{actividadNatacionId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/inscripciones"
+          }
+        },
+        {
+          "name": "Baja lógica (200)",
           "request": {
             "method": "PUT",
-            "url": "{{baseUrl}}/api/inscripciones/{{inscripcionActivaId}}/baja"
+            "description": "200 OK con la inscripción en estado BAJA. No se borra la fila: queda como histórico y deja de contar para el cupo y para el máximo de tres.",
+            "url": "{{baseUrl}}/api/inscripciones/{{inscripcionDeBajaId}}/baja"
+          }
+        },
+        {
+          "name": "Baja de una inscripción inexistente (404)",
+          "request": {
+            "method": "PUT",
+            "description": "404 Not Found: no hay una inscripción con ese id.",
+            "url": "{{baseUrl}}/api/inscripciones/9999/baja"
           }
         }
       ]
